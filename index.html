@@ -7,65 +7,118 @@
 
 <style>
 *{box-sizing:border-box}
+
 body{
  margin:0;
  font-family:Arial,sans-serif;
  background:#f3f7f4;
- color:#17221b
+ color:#17221b;
+ padding-bottom:75px
 }
-header{
- background:#087f3d;
- color:white;
- padding:20px;
- text-align:center
-}
-header h1{margin:0;font-size:27px}
-header p{margin:6px 0 0;font-size:13px}
 
-main{padding:16px;max-width:700px;margin:auto}
+header{
+ background:linear-gradient(135deg,#087f3d,#0aa653);
+ color:white;
+ padding:22px 16px;
+ text-align:center;
+ box-shadow:0 3px 12px #0002
+}
+
+header h1{
+ margin:0;
+ font-size:29px
+}
+
+header p{
+ margin:6px 0 0;
+ font-size:13px;
+ opacity:.9
+}
+
+main{
+ padding:16px;
+ max-width:700px;
+ margin:auto
+}
 
 .page{display:none}
 .page.active{display:block}
+
+h2{margin-top:8px}
 
 .cards{
  display:grid;
  grid-template-columns:1fr 1fr;
  gap:10px
 }
+
 .card{
  background:white;
  padding:16px;
- border-radius:14px;
- box-shadow:0 2px 8px #0001
+ border-radius:16px;
+ box-shadow:0 2px 9px #0001
 }
-.card small{color:#666}
+
+.card small{
+ color:#666
+}
+
 .card strong{
  display:block;
  font-size:20px;
  margin-top:8px
 }
 
-button{
- cursor:pointer
+.profit-card{
+ border-left:4px solid #087f3d
 }
+
+button{
+ cursor:pointer;
+ font-family:inherit
+}
+
 .primary{
  width:100%;
  border:0;
- border-radius:12px;
+ border-radius:13px;
  background:#087f3d;
  color:white;
  padding:14px;
  font-size:16px;
- margin:8px 0
+ margin:7px 0;
+ font-weight:bold
 }
+
+.primary:active{
+ transform:scale(.98)
+}
+
 .secondary{
  width:100%;
  border:1px solid #087f3d;
- border-radius:12px;
+ border-radius:13px;
  background:white;
  color:#087f3d;
  padding:13px;
- font-size:15px
+ font-size:15px;
+ margin:5px 0
+}
+
+.danger{
+ background:#b00020;
+ color:white;
+ border:0;
+ border-radius:9px;
+ padding:8px 11px
+}
+
+.edit{
+ background:#e7f5ed;
+ color:#087f3d;
+ border:0;
+ border-radius:9px;
+ padding:8px 11px
 }
 
 input,select{
@@ -77,6 +130,7 @@ input,select{
  background:white;
  font-size:15px
 }
+
 label{
  font-size:13px;
  font-weight:bold
@@ -85,16 +139,28 @@ label{
 .item{
  background:white;
  padding:14px;
- border-radius:12px;
+ border-radius:13px;
  margin:9px 0;
- box-shadow:0 1px 6px #0001
+ box-shadow:0 1px 7px #0001
 }
+
 .row{
  display:flex;
  justify-content:space-between;
  gap:10px;
  align-items:center
 }
+
+.actions{
+ display:flex;
+ gap:7px;
+ margin-top:12px
+}
+
+.actions button{
+ flex:1
+}
+
 .badge{
  background:#e7f5ed;
  color:#087f3d;
@@ -102,18 +168,30 @@ label{
  border-radius:8px;
  font-size:12px
 }
+
 .low{
  background:#ffecec;
  color:#b00020
 }
+
 .success{
  color:#087f3d;
  font-weight:bold
 }
+
+.expense{
+ color:#b00020;
+ font-weight:bold
+}
+
 .empty{
  text-align:center;
  color:#777;
  padding:30px
+}
+
+.search{
+ margin:12px 0
 }
 
 nav{
@@ -123,16 +201,20 @@ nav{
  right:0;
  display:flex;
  background:white;
- border-top:1px solid #ddd
+ border-top:1px solid #ddd;
+ z-index:20;
+ box-shadow:0 -2px 8px #0001
 }
+
 nav button{
  flex:1;
  border:0;
  background:white;
- padding:11px 4px;
+ padding:10px 3px;
  color:#555;
  font-size:12px
 }
+
 nav button.active{
  color:#087f3d;
  font-weight:bold
@@ -144,28 +226,64 @@ nav button.active{
  background:#0008;
  display:none;
  align-items:flex-end;
- z-index:10
+ z-index:50
 }
-.modal.show{display:flex}
+
+.modal.show{
+ display:flex
+}
+
 .box{
  background:white;
  width:100%;
  border-radius:20px 20px 0 0;
  padding:20px;
- max-height:90vh;
+ max-height:92vh;
  overflow:auto
 }
+
 .close{
  float:right;
  border:0;
  border-radius:50%;
  width:34px;
- height:34px
+ height:34px;
+ font-size:20px
 }
+
 hr{
  border:0;
  border-top:1px solid #eee;
  margin:12px 0
+}
+
+.stat{
+ background:#fff;
+ border-radius:13px;
+ padding:13px;
+ margin:8px 0
+}
+
+.warning{
+ background:#fff4e5;
+ color:#8a4b00;
+ padding:12px;
+ border-radius:12px;
+ margin:10px 0
+}
+
+.section-title{
+ display:flex;
+ justify-content:space-between;
+ align-items:center
+}
+
+.small-btn{
+ border:0;
+ background:#e7f5ed;
+ color:#087f3d;
+ border-radius:8px;
+ padding:7px 10px
 }
 </style>
 </head>
@@ -191,8 +309,8 @@ hr{
 <strong id="todaySales">0 MZN</strong>
 </div>
 
-<div class="card">
-<small>📈 Lucro</small>
+<div class="card profit-card">
+<small>📈 Lucro real</small>
 <strong id="todayProfit">0 MZN</strong>
 </div>
 
@@ -208,6 +326,8 @@ hr{
 
 </div>
 
+<div id="lowWarning"></div>
+
 <br>
 
 <button class="primary" onclick="openSale()">
@@ -216,6 +336,10 @@ hr{
 
 <button class="secondary" onclick="openProduct()">
 ➕ Adicionar produto
+</button>
+
+<button class="secondary" onclick="openExpense()">
+💸 Registrar despesa
 </button>
 
 <h2>Últimas vendas</h2>
@@ -228,9 +352,16 @@ hr{
 <!-- PRODUTOS -->
 <section id="products" class="page">
 
-<div class="row">
+<div class="section-title">
 <h2>📦 Produtos</h2>
+<button class="small-btn" onclick="openProduct()">＋</button>
 </div>
+
+<input
+class="search"
+id="productSearch"
+placeholder="🔎 Procurar produto..."
+oninput="renderProducts()">
 
 <button class="primary" onclick="openProduct()">
 ➕ Adicionar produto
@@ -245,6 +376,14 @@ hr{
 <section id="sales" class="page">
 
 <h2>💰 Vendas</h2>
+
+<input
+class="search"
+id="salesSearch"
+placeholder="🔎 Procurar venda..."
+oninput="renderSales()">
+
+<div id="salesSummary"></div>
 
 <div id="salesList"></div>
 
@@ -264,7 +403,7 @@ hr{
 </div>
 
 <div class="card">
-<small>Lucro hoje</small>
+<small>Lucro real hoje</small>
 <strong id="rProfit">0 MZN</strong>
 </div>
 
@@ -274,15 +413,36 @@ hr{
 </div>
 
 <div class="card">
-<small>Lucro este mês</small>
+<small>Lucro real este mês</small>
 <strong id="mProfit">0 MZN</strong>
 </div>
 
 </div>
 
-</section>
+<div class="stat">
+<b>💸 Despesas hoje</b>
+<div class="expense" id="rExpenses">0 MZN</div>
+</div>
 
-</main>
+<div class="stat">
+<b>💸 Despesas este mês</b>
+<div class="expense" id="mExpenses">0 MZN</div>
+</div>
+
+<div class="stat">
+<b>🧾 Total de vendas registradas</b>
+<div id="totalSaleCount">0</div>
+</div>
+
+<div class="stat">
+<b>📦 Valor do estoque</b>
+<div id="stockValue">0 MZN</div>
+</div>
+
+<h3>💸 Últimas despesas</h3>
+<div id="expenseList"></div>
+
+</section>
 
 
 <!-- MENU -->
@@ -307,46 +467,46 @@ hr{
 </nav>
 
 
-<!-- JANELA PRODUTO -->
+<!-- MODAL PRODUTO -->
 <div id="productModal" class="modal">
 
 <div class="box">
 
 <button class="close" onclick="closeModal('productModal')">×</button>
 
-<h2>Adicionar produto</h2>
+<h2 id="productModalTitle">Adicionar produto</h2>
 
 <label>Nome do produto</label>
 <input id="pName" placeholder="Ex.: Coca-Cola">
 
 <label>Preço de compra (MZN)</label>
-<input id="pCost" type="number" placeholder="Ex.: 50">
+<input id="pCost" type="number" min="0" placeholder="Ex.: 50">
 
 <label>Preço de venda (MZN)</label>
-<input id="pPrice" type="number" placeholder="Ex.: 70">
+<input id="pPrice" type="number" min="0" placeholder="Ex.: 70">
 
 <label>Quantidade em estoque</label>
-<input id="pStock" type="number" placeholder="Ex.: 20">
+<input id="pStock" type="number" min="0" placeholder="Ex.: 20">
 
 <label>Estoque mínimo</label>
-<input id="pMin" type="number" value="5">
+<input id="pMin" type="number" min="0" value="5">
 
 <button class="primary" onclick="saveProduct()">
-Guardar produto
+💾 Guardar produto
 </button>
 
 </div>
 </div>
 
 
-<!-- JANELA VENDA -->
+<!-- MODAL VENDA -->
 <div id="saleModal" class="modal">
 
 <div class="box">
 
 <button class="close" onclick="closeModal('saleModal')">×</button>
 
-<h2>Registrar venda</h2>
+<h2>🛒 Registrar venda</h2>
 
 <label>Produto</label>
 <select id="saleProduct"></select>
@@ -357,7 +517,30 @@ Guardar produto
 <div id="saleInfo"></div>
 
 <button class="primary" onclick="saveSale()">
-Confirmar venda
+✅ Confirmar venda
+</button>
+
+</div>
+</div>
+
+
+<!-- MODAL DESPESA -->
+<div id="expenseModal" class="modal">
+
+<div class="box">
+
+<button class="close" onclick="closeModal('expenseModal')">×</button>
+
+<h2>💸 Registrar despesa</h2>
+
+<label>Descrição</label>
+<input id="eName" placeholder="Ex.: Transporte">
+
+<label>Valor (MZN)</label>
+<input id="eValue" type="number" min="0" placeholder="Ex.: 100">
+
+<button class="primary" onclick="saveExpense()">
+💾 Guardar despesa
 </button>
 
 </div>
@@ -372,6 +555,15 @@ JSON.parse(localStorage.getItem("bf_products") || "[]");
 let sales =
 JSON.parse(localStorage.getItem("bf_sales") || "[]");
 
+let expenses =
+JSON.parse(localStorage.getItem("bf_expenses") || "[]");
+
+let editingProductId=null;
+
+
+/* =========================
+   DADOS
+========================= */
 
 function saveData(){
 
@@ -385,8 +577,17 @@ localStorage.setItem(
 JSON.stringify(sales)
 );
 
+localStorage.setItem(
+"bf_expenses",
+JSON.stringify(expenses)
+);
+
 }
 
+
+/* =========================
+   DINHEIRO
+========================= */
 
 function money(n){
 
@@ -400,6 +601,10 @@ maximumFractionDigits:2
 
 }
 
+
+/* =========================
+   DATAS
+========================= */
 
 function today(date){
 
@@ -424,6 +629,10 @@ return d.getFullYear()==n.getFullYear()
 }
 
 
+/* =========================
+   NAVEGAÇÃO
+========================= */
+
 function showPage(id,button){
 
 document.querySelectorAll(".page")
@@ -439,10 +648,51 @@ button.classList.add("active");
 
 render();
 
+window.scrollTo(0,0);
+
 }
 
 
+/* =========================
+   MODAIS
+========================= */
+
 function openProduct(){
+
+editingProductId=null;
+
+document.getElementById("productModalTitle")
+.textContent="Adicionar produto";
+
+document.getElementById("pName").value="";
+document.getElementById("pCost").value="";
+document.getElementById("pPrice").value="";
+document.getElementById("pStock").value="";
+document.getElementById("pMin").value=5;
+
+document
+.getElementById("productModal")
+.classList.add("show");
+
+}
+
+
+function editProduct(id){
+
+let p=products.find(x=>x.id===id);
+
+if(!p)return;
+
+editingProductId=id;
+
+document.getElementById("productModalTitle")
+.textContent="✏️ Editar produto";
+
+document.getElementById("pName").value=p.name;
+document.getElementById("pCost").value=p.cost;
+document.getElementById("pPrice").value=p.price;
+document.getElementById("pStock").value=p.stock;
+document.getElementById("pMin").value=p.min;
 
 document
 .getElementById("productModal")
@@ -461,11 +711,33 @@ return;
 
 }
 
+let available=products.filter(p=>p.stock>0);
+
+if(available.length==0){
+
+alert("Não há produtos com estoque disponível.");
+
+return;
+
+}
+
 document
 .getElementById("saleModal")
 .classList.add("show");
 
 fillProducts();
+
+}
+
+
+function openExpense(){
+
+document.getElementById("eName").value="";
+document.getElementById("eValue").value="";
+
+document
+.getElementById("expenseModal")
+.classList.add("show");
 
 }
 
@@ -478,6 +750,10 @@ document
 
 }
 
+
+/* =========================
+   PRODUTOS
+========================= */
 
 function saveProduct(){
 
@@ -505,6 +781,30 @@ return;
 
 }
 
+if(cost<0 || price<=0 || stock<0 || min<0){
+
+alert("Verifique os valores introduzidos.");
+
+return;
+
+}
+
+
+if(editingProductId){
+
+let p=products.find(x=>x.id===editingProductId);
+
+if(p){
+
+p.name=name;
+p.cost=cost;
+p.price=price;
+p.stock=stock;
+p.min=min;
+
+}
+
+}else{
 
 products.push({
 
@@ -522,21 +822,52 @@ min:min
 
 });
 
+}
+
 
 saveData();
 
 closeModal("productModal");
 
-document.getElementById("pName").value="";
-document.getElementById("pCost").value="";
-document.getElementById("pPrice").value="";
-document.getElementById("pStock").value="";
-document.getElementById("pMin").value=5;
+render();
+
+alert(
+editingProductId
+?"Produto atualizado com sucesso!"
+:"Produto adicionado com sucesso!"
+);
+
+editingProductId=null;
+
+}
+
+
+function deleteProduct(id){
+
+let p=products.find(x=>x.id===id);
+
+if(!p)return;
+
+let confirmDelete=confirm(
+"Excluir o produto \""+
+p.name+
+"\"?"
+);
+
+if(!confirmDelete)return;
+
+products=products.filter(x=>x.id!==id);
+
+saveData();
 
 render();
 
 }
 
+
+/* =========================
+   VENDA
+========================= */
 
 function fillProducts(){
 
@@ -546,6 +877,8 @@ document.getElementById("saleProduct");
 select.innerHTML="";
 
 products.forEach((p,i)=>{
+
+if(p.stock<=0)return;
 
 let option=document.createElement("option");
 
@@ -565,11 +898,17 @@ updateSaleInfo();
 
 document
 .getElementById("saleProduct")
-.addEventListener("change",updateSaleInfo);
+.addEventListener(
+"change",
+updateSaleInfo
+);
 
 document
 .getElementById("saleQty")
-.addEventListener("input",updateSaleInfo);
+.addEventListener(
+"input",
+updateSaleInfo
+);
 
 
 function updateSaleInfo(){
@@ -597,9 +936,12 @@ document.getElementById("saleInfo")
 '<b>Total:</b> '+money(total)+
 '<br>'+
 '<b>Lucro:</b> '+
-'<span class="success">'+money(profit)+'</span>'+
+'<span class="success">'+
+money(profit)+
+'</span>'+
 '<br>'+
-'<small>Estoque disponível: '+p.stock+
+'<small>Estoque disponível: '+
+p.stock+
 '</small>'+
 '</div>';
 
@@ -620,20 +962,19 @@ let p=products[i];
 
 if(!p || q<1 || q>p.stock){
 
-alert("Quantidade inválida ou estoque insuficiente.");
+alert(
+"Quantidade inválida ou estoque insuficiente."
+);
 
 return;
 
 }
 
-
 let total=p.price*q;
 
 let profit=(p.price-p.cost)*q;
 
-
 p.stock-=q;
-
 
 sales.unshift({
 
@@ -651,7 +992,6 @@ date:new Date().toISOString()
 
 });
 
-
 saveData();
 
 closeModal("saleModal");
@@ -662,31 +1002,142 @@ render();
 
 alert("Venda registrada com sucesso!");
 
+
+if(p.stock<=p.min){
+
+setTimeout(()=>{
+
+alert(
+"⚠️ Atenção: o estoque de "+
+p.name+
+" está baixo."
+);
+
+},300);
+
 }
 
+}
+
+
+/* =========================
+   DESPESAS
+========================= */
+
+function saveExpense(){
+
+let name=document
+.getElementById("eName")
+.value
+.trim();
+
+let value=Number(
+document.getElementById("eValue")
+.value
+);
+
+if(!name){
+
+alert("Digite a descrição da despesa.");
+
+return;
+
+}
+
+if(value<=0){
+
+alert("Digite um valor válido.");
+
+return;
+
+}
+
+expenses.unshift({
+
+id:Date.now(),
+
+name:name,
+
+value:value,
+
+date:new Date().toISOString()
+
+});
+
+saveData();
+
+closeModal("expenseModal");
+
+render();
+
+alert("Despesa registrada com sucesso!");
+
+}
+
+
+/* =========================
+   RENDER PRINCIPAL
+========================= */
 
 function render(){
 
 let todaySales=
 sales
 .filter(s=>today(s.date))
-.reduce((a,s)=>a+s.total,0);
+.reduce(
+(a,s)=>a+s.total,
+0
+);
 
-let todayProfit=
+let grossProfit=
 sales
 .filter(s=>today(s.date))
-.reduce((a,s)=>a+s.profit,0);
+.reduce(
+(a,s)=>a+s.profit,
+0
+);
+
+let todayExpenses=
+expenses
+.filter(e=>today(e.date))
+.reduce(
+(a,e)=>a+e.value,
+0
+);
+
+let todayProfit=
+grossProfit-todayExpenses;
+
 
 let monthSales=
 sales
 .filter(s=>month(s.date))
-.reduce((a,s)=>a+s.total,0);
+.reduce(
+(a,s)=>a+s.total,
+0
+);
 
-let monthProfit=
+let monthGrossProfit=
 sales
 .filter(s=>month(s.date))
-.reduce((a,s)=>a+s.profit,0);
+.reduce(
+(a,s)=>a+s.profit,
+0
+);
 
+let monthExpenses=
+expenses
+.filter(e=>month(e.date))
+.reduce(
+(a,e)=>a+e.value,
+0
+);
+
+let monthProfit=
+monthGrossProfit-monthExpenses;
+
+
+/* INÍCIO */
 
 document.getElementById("todaySales")
 .textContent=money(todaySales);
@@ -697,10 +1148,17 @@ document.getElementById("todayProfit")
 document.getElementById("productCount")
 .textContent=products.length;
 
+let lowProducts=
+products.filter(
+p=>p.stock<=p.min
+);
+
 document.getElementById("lowCount")
 .textContent=
-products.filter(p=>p.stock<=p.min).length;
+lowProducts.length;
 
+
+/* RELATÓRIOS */
 
 document.getElementById("rSales")
 .textContent=money(todaySales);
@@ -714,26 +1172,89 @@ document.getElementById("mSales")
 document.getElementById("mProfit")
 .textContent=money(monthProfit);
 
+document.getElementById("rExpenses")
+.textContent=money(todayExpenses);
 
-renderProducts();
+document.getElementById("mExpenses")
+.textContent=money(monthExpenses);
 
-renderSales();
+document.getElementById("totalSaleCount")
+.textContent=sales.length;
 
-renderRecent();
+
+/* VALOR DO ESTOQUE */
+
+let stockValue=
+products.reduce(
+(a,p)=>a+(p.cost*p.stock),
+0
+);
+
+document.getElementById("stockValue")
+.textContent=money(stockValue);
+
+
+/* ALERTA ESTOQUE */
+
+let warning=
+document.getElementById("lowWarning");
+
+if(lowProducts.length){
+
+warning.innerHTML=
+'<div class="warning">'+
+'⚠️ <b>Atenção:</b> '+
+lowProducts.length+
+' produto(s) com estoque baixo.'+
+'</div>';
+
+}else{
+
+warning.innerHTML="";
 
 }
 
+
+renderProducts();
+renderSales();
+renderRecent();
+renderExpenses();
+
+}
+
+
+/* =========================
+   LISTA DE PRODUTOS
+========================= */
 
 function renderProducts(){
 
 let box=
 document.getElementById("productList");
 
-if(products.length==0){
+let search=
+(
+document.getElementById("productSearch")
+?.value || ""
+)
+.toLowerCase()
+.trim();
+
+let list=
+products.filter(
+p=>p.name.toLowerCase().includes(search)
+);
+
+
+if(list.length==0){
 
 box.innerHTML=
 '<div class="empty">'+
-'Nenhum produto cadastrado.'+
+(
+products.length
+?"Nenhum produto encontrado."
+:"Nenhum produto cadastrado."
+)+
 '</div>';
 
 return;
@@ -744,7 +1265,7 @@ return;
 box.innerHTML="";
 
 
-products.forEach(p=>{
+list.forEach(p=>{
 
 let low=p.stock<=p.min;
 
@@ -754,7 +1275,7 @@ box.innerHTML+=
 
 '<div class="row">'+
 
-'<b>'+p.name+'</b>'+
+'<b>'+escapeHTML(p.name)+'</b>'+
 
 '<span class="badge '+
 (low?'low':'')+
@@ -777,6 +1298,18 @@ box.innerHTML+=
 money(p.price-p.cost)+
 '</span>'+
 
+'<div class="actions">'+
+
+'<button class="edit" onclick="editProduct('+
+p.id+
+')">✏️ Editar</button>'+
+
+'<button class="danger" onclick="deleteProduct('+
+p.id+
+')">🗑️ Excluir</button>'+
+
+'</div>'+
+
 '</div>';
 
 });
@@ -784,16 +1317,54 @@ money(p.price-p.cost)+
 }
 
 
+/* =========================
+   VENDAS
+========================= */
+
 function renderSales(){
 
 let box=
 document.getElementById("salesList");
 
-if(sales.length==0){
+let search=
+(
+document.getElementById("salesSearch")
+?.value || ""
+)
+.toLowerCase()
+.trim();
+
+let list=
+sales.filter(
+s=>s.product.toLowerCase().includes(search)
+);
+
+let todayTotal=
+sales
+.filter(s=>today(s.date))
+.reduce((a,s)=>a+s.total,0);
+
+let todayProfit=
+sales
+.filter(s=>today(s.date))
+.reduce((a,s)=>a+s.profit,0);
+
+document.getElementById("salesSummary")
+.innerHTML=
+'<div class="stat">'+
+'Hoje: <b>'+money(todayTotal)+'</b>'+
+' &nbsp; | &nbsp; Lucro bruto: '+
+'<span class="success">'+
+money(todayProfit)+
+'</span>'+
+'</div>';
+
+
+if(list.length==0){
 
 box.innerHTML=
 '<div class="empty">'+
-'Nenhuma venda registrada.'+
+'Nenhuma venda encontrada.'+
 '</div>';
 
 return;
@@ -804,7 +1375,7 @@ return;
 box.innerHTML="";
 
 
-sales.forEach(s=>{
+list.forEach(s=>{
 
 box.innerHTML+=
 
@@ -812,7 +1383,7 @@ box.innerHTML+=
 
 '<div class="row">'+
 
-'<b>'+s.product+
+'<b>'+escapeHTML(s.product)+
 ' × '+s.qty+'</b>'+
 
 '<b>'+money(s.total)+'</b>'+
@@ -820,13 +1391,15 @@ box.innerHTML+=
 '</div>'+
 
 '<small>'+
-new Date(s.date).toLocaleString("pt-MZ")+
+new Date(s.date)
+.toLocaleString("pt-MZ")+
 '</small>'+
 
 '<br>'+
 
 '<span class="success">'+
-'Lucro: '+money(s.profit)+
+'Lucro bruto: '+
+money(s.profit)+
 '</span>'+
 
 '</div>';
@@ -835,6 +1408,10 @@ new Date(s.date).toLocaleString("pt-MZ")+
 
 }
 
+
+/* =========================
+   VENDAS RECENTES
+========================= */
 
 function renderRecent(){
 
@@ -866,7 +1443,7 @@ box.innerHTML+=
 
 '<div class="row">'+
 
-'<b>'+s.product+
+'<b>'+escapeHTML(s.product)+
 ' × '+s.qty+'</b>'+
 
 '<span>'+money(s.total)+'</span>'+
@@ -884,9 +1461,37 @@ box.innerHTML+=
 }
 
 
-render();
+/* =========================
+   DESPESAS
+========================= */
 
-</script>
+function renderExpenses(){
 
-</body>
-</html>
+let box=
+document.getElementById("expenseList");
+
+if(expenses.length==0){
+
+box.innerHTML=
+'<div class="empty">'+
+'Nenhuma despesa registrada.'+
+'</div>';
+
+return;
+
+}
+
+
+box.innerHTML="";
+
+expenses.slice(0,10).forEach(e=>{
+
+box.innerHTML+=
+
+'<div class="item">'+
+
+'<div class="row">'+
+
+'<b>💸 '+escapeHTML(e.name)+'</b>'+
+
+'<span class
